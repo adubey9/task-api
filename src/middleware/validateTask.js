@@ -18,3 +18,13 @@ export const validateTask = [
 
   checkValidationResults,
 ];
+// Validate optional GET /tasks?completed=true|false query parameter.
+import { query } from 'express-validator';
+
+export const validateCompletedQuery = [
+  query('completed')
+    .optional()
+    .isIn(['true', 'false'])
+    .withMessage('completed must be true or false'),
+  checkValidationResults,
+];

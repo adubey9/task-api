@@ -1,8 +1,15 @@
 import * as taskService from '../services/taskService.js';
 
 export async function getTasks(req, res, next) {
-  const tasks = await taskService.getAllTasks();
-  res.json(tasks);
+  try {
+    const completed = req.query.completed === undefined
+      ? undefined
+      : req.query.completed === 'true';
+    const tasks = await taskService.getAllTasks(completed);
+    res.json(tasks);
+  } catch (err) {
+    next(err);
+  }
 }
 
 export async function createTask(req, res, next) {
